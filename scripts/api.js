@@ -3,7 +3,7 @@
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "2e3ea4f1c6msh3551d0a7508329bp1672c9jsn0ae102fa9921",
+    "X-RapidAPI-Key": "405fc73b7emshaf2dbd3ee5ffc59p110b72jsn3a90ac39d11c",
     "X-RapidAPI-Host": "shazam.p.rapidapi.com",
   },
 };
@@ -30,4 +30,24 @@ export default class API {
   }
 
   //aratılan kelimeye uygun şarkıları al
+  async searchMusic(query) {
+    //api isteği at
+    const res = await fetch(
+      `https://shazam.p.rapidapi.com/search?term=${query}&locale=tr`,
+      options
+    );
+
+    //gelen cevabı işle
+
+    const data = await res.json();
+
+    //gelen cevabın formatını değiştir
+
+    const formatted = data.tracks.hits.map((song) => {
+      return song.track;
+    });
+
+    //gelen veriyi değişkene aktar
+    this.songs = formatted;
+  }
 }
